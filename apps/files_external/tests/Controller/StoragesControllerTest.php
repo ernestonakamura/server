@@ -31,11 +31,12 @@ namespace OCA\Files_External\Tests\Controller;
 use OCA\Files_External\Controller\GlobalStoragesController;
 use OCA\Files_External\Lib\Auth\AuthMechanism;
 use OCA\Files_External\Lib\Backend\Backend;
-
 use OCA\Files_External\Lib\StorageConfig;
 use OCA\Files_External\NotFoundException;
 use OCA\Files_External\Service\GlobalStoragesService;
 use OCP\AppFramework\Http;
+use OCP\IUser;
+use OCP\IUserSession;
 
 abstract class StoragesControllerTest extends \Test\TestCase {
 
@@ -49,7 +50,16 @@ abstract class StoragesControllerTest extends \Test\TestCase {
 	 */
 	protected $service;
 
+	/** @var IUserSession */
+	protected $userSession;
+
 	protected function setUp(): void {
+		$user = $this->createMock(IUser::class);
+		$user->method('getUID')
+			->willReturn('test');
+		$this->userSession = $this->createMock(IUserSession::class);
+		$this->userSession->method('getUser')
+			->willReturn($user);
 		\OCA\Files_External\MountConfig::$skipTest = true;
 	}
 
@@ -337,8 +347,11 @@ abstract class StoragesControllerTest extends \Test\TestCase {
 			->willReturn($storageConfig);
 		$response = $this->controller->show(1);
 
+		$expected = $storageConfig->jsonSerialize();
+		$expected['can_edit'] = false;
+
 		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
-		$this->assertEquals($storageConfig, $response->getData());
+		$this->assertEquals($expected, $response->getData());
 	}
 
 	public function validateStorageProvider() {

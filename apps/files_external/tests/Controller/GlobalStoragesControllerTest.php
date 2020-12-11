@@ -28,6 +28,7 @@ namespace OCA\Files_External\Tests\Controller;
 
 use OCA\Files_External\Controller\GlobalStoragesController;
 use OCA\Files_External\Service\BackendService;
+use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\ILogger;
 use OCP\IRequest;
@@ -47,7 +48,9 @@ class GlobalStoragesControllerTest extends StoragesControllerTest {
 			$this->createMock(IRequest::class),
 			$this->createMock(IL10N::class),
 			$this->service,
-			$this->createMock(ILogger::class)
+			$this->createMock(ILogger::class),
+			$this->userSession,
+			$this->createMock(IGroupManager::class)
 		);
 	}
 }
