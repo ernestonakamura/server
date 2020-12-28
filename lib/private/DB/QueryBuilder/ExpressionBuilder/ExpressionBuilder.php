@@ -428,7 +428,7 @@ class ExpressionBuilder implements IExpressionBuilder {
 	 * @return string
 	 */
 	public function castColumn($column, $type) {
-		return new QueryFunction(
+		return (string) new QueryFunction(
 			$this->helper->quoteColumnName($column)
 		);
 	}

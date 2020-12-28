@@ -39,9 +39,9 @@ class PgSqlExpressionBuilder extends ExpressionBuilder {
 	public function castColumn($column, $type) {
 		switch ($type) {
 			case IQueryBuilder::PARAM_INT:
-				return new QueryFunction('CAST(' . $this->helper->quoteColumnName($column) . ' AS INT)');
+				return (string) new QueryFunction('CAST(' . $this->helper->quoteColumnName($column) . ' AS INT)');
 			case IQueryBuilder::PARAM_STR:
-				return new QueryFunction('CAST(' . $this->helper->quoteColumnName($column) . ' AS TEXT)');
+				return (string) new QueryFunction('CAST(' . $this->helper->quoteColumnName($column) . ' AS TEXT)');
 			default:
 				return parent::castColumn($column, $type);
 		}
