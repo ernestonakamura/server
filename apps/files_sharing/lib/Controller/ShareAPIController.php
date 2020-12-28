@@ -1147,7 +1147,6 @@ class ShareAPIController extends OCSController {
 		// NOT A LINK SHARE
 		else {
 			if ($permissions !== null) {
-				$permissions = (int) $permissions;
 				$share->setPermissions($permissions);
 			}
 

@@ -147,7 +147,9 @@ abstract class QBMapper {
 	 * updates an existing entry if duplicate keys are detected
 	 * by the database
 	 *
+	 * @param Entity $entity the entity that should be created/updated
 	 * @psalm-param T $entity the entity that should be created/updated
+	 * @return Entity the saved entity with the (new) id
 	 * @psalm-return T the saved entity with the (new) id
 	 * @throws \InvalidArgumentException if entity has no id
 	 * @since 15.0.0
